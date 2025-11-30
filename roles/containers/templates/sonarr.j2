@@ -1,0 +1,21 @@
+services:
+  sonarr:
+    image: lscr.io/linuxserver/sonarr:latest
+    container_name: sonarr
+    environment:
+      - PUID={{docker_userid}}
+      - PGID={{docker_userid}}
+      - TZ={{docker_timezone}}
+    volumes:
+      - ./data:/config
+      - ../transmission/downloads:/downloads
+      - {{storage_location}}/Series:/series
+    restart: unless-stopped
+    ports:
+      - 8989:8989
+    networks:
+      - docker-network
+
+networks:
+  docker-network:
+    external: true

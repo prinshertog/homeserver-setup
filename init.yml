@@ -1,0 +1,7 @@
+- name: Server Ansible Script
+  become: yes
+  become_user: root
+  hosts: all
+  roles:
+    - docker
+    - containers

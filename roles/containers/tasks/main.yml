@@ -1,0 +1,60 @@
+- name: Create group {{docker_user_name}} for docker
+  group:
+    name: "{{docker_user_name}}"
+    state: present
+    gid: 1010
+
+- name: Create user {{docker_user_name}} for docker
+  user:
+    name: "{{docker_user_name}}"
+    groups: 
+      - "{{docker_user_name}}"
+      - docker
+    append: yes
+    uid: 1010
+
+- name: Create docker network
+  community.docker.docker_network:
+    name: docker-network
+    state: present
+    ipam_config:
+      - subnet: 172.21.0.0/24
+  become: yes
+  become_user: "{{docker_user_name}}"
+
+- name: Create the docker folder
+  file:
+    path: "{{container_config_location}}"
+    state: directory
+
+- name: Create config folders
+  file:
+    path: "{{container_config_location}}/{{item}}"
+    state: directory
+  loop: "{{containers}}"
+
+- name: Copy docker configs
+  template:
+    src: "{{item}}.j2"
+    dest: "{{container_config_location}}/{{item}}/compose.yml"
+    owner: "{{docker_user_name}}"
+    group: "{{docker_user_name}}"
+    mode: "0644"
+  loop: "{{containers}}"
+
+- name: Run containers
+  shell:
+    cmd: "docker compose up -d"
+    chdir: "{{ container_config_location }}/{{ item }}"
+  loop: "{{ containers }}"
+  become: yes
+  become_user: "{{docker_user_name}}"
+  ignore_errors: true
+
+- name: Copy env for immich
+  template:
+    src: "immich-env.j2"
+    dest: "{{container_config_location}}/immich/.env"
+    owner: "{{docker_user_name}}"
+    group: "{{docker_user_name}}"
+    mode: "0644"

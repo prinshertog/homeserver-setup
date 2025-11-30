@@ -1,0 +1,23 @@
+services:
+  transmission:
+    image: lscr.io/linuxserver/transmission:latest
+    container_name: transmission
+    environment:
+      - PUID={{docker_userid}}
+      - PGID={{docker_userid}}
+      - TZ={{docker_timezone}}
+    volumes:
+      - ./config:/config
+      - ./downloads:/downloads
+      - ./watch:/watch
+    ports:
+      - 9091:9091
+      - 51413:51413
+      - 51413:51413/udp
+    restart: unless-stopped
+    networks:
+      - docker-network
+
+networks:
+  docker-network:
+    external: true

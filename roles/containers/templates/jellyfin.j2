@@ -1,0 +1,23 @@
+services:
+  jellyfin:
+    image: lscr.io/linuxserver/jellyfin:latest
+    container_name: jellyfin
+    environment:
+      - PUID={{docker_userid}}
+      - PGID={{docker_userid}}
+      - TZ={{docker_timezone}}
+    #devices:
+    #  - /dev/dri/renderD128:/dev/dri/renderD128
+    #  - /dev/dri/card0:/dev/dri/card0
+    volumes:
+      - ./config:/config
+      - {{storage_location}}:/hdd
+    ports:
+      - 8096:8096
+    restart: unless-stopped
+    networks:
+      - docker-network
+
+networks:
+  docker-network:
+    external: true

@@ -1,0 +1,20 @@
+services:
+  bazarr:
+    image: lscr.io/linuxserver/bazarr:latest
+    container_name: bazarr
+    environment:
+      - PUID={{docker_userid}}
+      - PGID={{docker_userid}}
+      - TZ={{docker_timezone}}
+    volumes:
+      - ./data:/config
+      - {{storage_location}}/Films:/films
+      - {{storage_location}}/Series:/series
+    ports:
+      - 6767:6767
+    restart: unless-stopped
+    networks:
+      - docker-network
+networks:
+  docker-network:
+    external: true

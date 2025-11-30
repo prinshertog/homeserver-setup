@@ -1,0 +1,21 @@
+services:
+  jackett:
+    image: lscr.io/linuxserver/jackett:latest
+    container_name: jackett
+    environment:
+      - PUID={{docker_userid}}
+      - PGID={{docker_userid}}
+      - TZ={{docker_timezone}}
+      - AUTO_UPDATE=true #optional
+      - RUN_OPTS= #optional
+    volumes:
+      - ./:/config
+    ports:
+      - 9117:9117
+    restart: always
+    networks:
+      - docker-network
+
+networks:
+  docker-network:
+    external: true

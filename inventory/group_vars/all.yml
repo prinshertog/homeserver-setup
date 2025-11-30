@@ -1,0 +1,14 @@
+docker_user_name: dockeruser
+container_config_location: /opt/docker
+storage_location: /mnt/HDD
+docker_timezone: Europe/Brussels
+docker_userid: 1010
+containers:
+  - bazarr
+  - dockge
+  - immich
+  - jackett
+  - jellyfin
+  - radarr
+  - sonarr
+  - transmission
