@@ -1,8 +1,14 @@
+# De gebruikersnaam voor de gebruiker die docker zal uitvoeren en eigenaar is van de bestanden
+# Vooral voor security
 docker_user_name: dockeruser
+# Locatie waar de docker configuratie bestanden zullen leven
 container_config_location: /opt/docker
+# Locatie waar alles opgeslagen zal worden van zware bestande (fotos voor immich bijvoorbeeld).
 storage_location: /mnt/HDD
 docker_timezone: Europe/Brussels
+# Userid van de docker user
 docker_userid: 1010
+# Geactiveerde containers
 containers:
   - bazarr
   - dockge
