@@ -1,2 +1,2 @@
 #!/bin/bash
-ansible-playbook -i inventory/hosts init.yml
+ansible-playbook -i inventory/hosts init.yml --ask-pass
