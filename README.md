@@ -13,6 +13,13 @@ Dit script is alleen getest op debian 13 (trixie)
 python3 -m pip install --user ansible
 ```
 
+## Configuratie
+Pas in de volgende file de variables aan naar jou voorkeur.
+`inventory/group_vars/all.yml`
+
+Pas in de volgende file het ip adres van je device aan.
+`inventory/hosts`
+
 ## Uitvoeren van het script
 ```
 ./run_ansible.sh
