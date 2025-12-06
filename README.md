@@ -2,7 +2,9 @@
 
 ## BELANGRIJK
 
-Dit script is alleen getest op debian 13 (trixie)
+Dit script is getest op:
+- Debian 13 trixie
+- Raspbian (debian 13 trixie)
 
 ## Benodigdheden
 
