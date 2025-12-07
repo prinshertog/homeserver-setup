@@ -8,7 +8,7 @@ services:
       - TZ={{docker_timezone}}
     volumes:
       - ./config:/config
-      - ./downloads:/downloads
+      - {{storage_location}}/transmission/downloads:/downloads
       - ./watch:/watch
     ports:
       - 9091:9091
